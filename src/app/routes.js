@@ -1,7 +1,9 @@
 import { Router } from 'express';
 
+import CheckoutController from './controllers/CheckoutController';
+
 const routes = new Router();
 
-routes.get('/', (request, response) => response.json({ ok: true }));
+routes.post('/checkout', CheckoutController.store);
 
 export default routes;
