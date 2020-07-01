@@ -1,21 +1,33 @@
 import CreateAddressService from '../services/CreateAddressService';
 import CreateUserService from '../services/CreateUserService';
+import CreateCieloTransactionService from '../services/CreateCieloTransactionService';
 
 class CheckoutController {
   async store(request, response) {
-    const { address, user } = request.body;
+    try {
+      const { address, user, cardOwnerData, creditCardData } = request.body;
 
-    const createAddress = new CreateAddressService();
-    const createUser = new CreateUserService();
+      const createAddress = new CreateAddressService();
+      const createUser = new CreateUserService();
+      const createCieloTransaction = new CreateCieloTransactionService();
 
-    const addressCreated = await createAddress.execute(address);
+      const addressCreated = await createAddress.execute(address);
 
-    const userCreated = await createUser.execute({
-      name: user.name,
-      address_id: addressCreated.id,
-    });
+      const userCreated = await createUser.execute({
+        name: user.name,
+        address_id: addressCreated.id,
+      });
 
-    return response.json(addressCreated);
+      const cieloTransaction = await createCieloTransaction.execute({
+        address,
+        cardOwnerData,
+        creditCardData,
+      });
+
+      return response.json(cieloTransaction);
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
   }
 }
 
