@@ -2,10 +2,10 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable('users', {
       id: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
-        defaultValue: Sequelize.literal('uuid_generate_v4()'),
+        autoIncrement: true,
       },
       name: {
         type: Sequelize.STRING,
@@ -20,7 +20,7 @@ module.exports = {
         allowNull: false,
       },
       address_id: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'addresses', foreignKey: 'id' },
         onDelete: 'SET NULL',

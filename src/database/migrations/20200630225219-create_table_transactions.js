@@ -2,10 +2,10 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable('transactions', {
       id: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
-        defaultValue: Sequelize.literal('uuid_generate_v4()'),
+        autoIncrement: true,
       },
       status: {
         type: Sequelize.STRING,
@@ -24,7 +24,7 @@ module.exports = {
         allowNull: false,
       },
       user_id: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'users', foreignKey: 'id' },
         onDelete: 'SET NULL',
