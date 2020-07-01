@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import Address from '../models/Address';
 
 class CreateAddressService {
@@ -12,9 +13,7 @@ class CreateAddressService {
   }) {
     const addressExists = await Address.findOne({
       where: {
-        zip_code,
-        number,
-        additional,
+        [Op.and]: [{ zip_code, number, additional }],
       },
     });
 
