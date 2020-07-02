@@ -13,7 +13,7 @@ class CheckoutController {
 
       const addressCreated = await createAddress.execute(address);
 
-      const userCreated = await createUser.execute({
+      await createUser.execute({
         name: user.name,
         address_id: addressCreated.id,
       });
