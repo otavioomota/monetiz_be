@@ -69,7 +69,7 @@ class CreateCieloTransactionService {
 
     const response = await api({
       method: 'post',
-      url: `${process.env.cieloURL}/1/sales`,
+      url: `${process.env.cieloCreateTransactionURL}/1/sales`,
       data: cieloObjectData,
       headers: {
         MerchantId: `${process.env.merchantID}`,
