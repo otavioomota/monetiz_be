@@ -7,22 +7,29 @@ class CheckoutController {
     try {
       const { address, user, cardOwnerData, creditCardData } = request.body;
 
+      console.log(request.body);
+
       const createAddress = new CreateAddressService();
       const createUser = new CreateUserService();
       const createCieloTransaction = new CreateCieloTransactionService();
 
+      console.log('1');
       const addressCreated = await createAddress.execute(address);
 
+      console.log('2');
       await createUser.execute({
         name: user.name,
         address_id: addressCreated.id,
       });
+      console.log('3');
 
       const cieloTransaction = await createCieloTransaction.execute({
         address,
+        user,
         cardOwnerData,
         creditCardData,
       });
+      console.log('4');
 
       return response.json(cieloTransaction);
     } catch (err) {

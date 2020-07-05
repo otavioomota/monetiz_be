@@ -1,15 +1,17 @@
 import api from '../../services/api';
 
 class CreateCieloTransactionService {
-  async execute({ address, cardOwnerData, creditCardData }) {
+  async execute({ address, user, cardOwnerData, creditCardData }) {
     const { street, number, additional, zip_code, city, state } = address;
-    const { name, email, bithdate } = cardOwnerData;
+    const { name } = user;
+    const { email, bithdate } = cardOwnerData;
     const {
       cc_number,
       cc_holder,
       cc_validity,
       cc_cvc,
       cc_brand,
+      price,
     } = creditCardData;
 
     const cieloObjectData = {
@@ -60,13 +62,12 @@ class CreateCieloTransactionService {
         },
         IsCryptoCurrencyNegotiation: true,
         Type: 'CreditCard',
-        Amount: 15700,
+        Amount: price,
         AirlineData: {
           TicketNumber: 'AR988983',
         },
       },
     };
-
     const response = await api({
       method: 'post',
       url: `${process.env.cieloCreateTransactionURL}/1/sales`,
