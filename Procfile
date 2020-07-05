@@ -1,1 +1,1 @@
-web: node src/index.js
+web: sucrase-node src/index.js
