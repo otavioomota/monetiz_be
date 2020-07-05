@@ -6,6 +6,7 @@
   "author": "otavioomota <otaviomo19@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "nodemon src/index.js",
     "dev:server": "nodemon src/index.js"
   },
   "dependencies": {
