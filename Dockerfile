@@ -1,10 +1,19 @@
-FROM node:alpine
+FROM node:lts-alpine
 
-WORKDIR '/app'
+RUN mkdir -p /home/node/api/node_modules && chown -R node:node /home
 
-COPY package.json .
-RUN npm install
+WORKDIR /home/node/api
 
-COPY . .
+COPY package.json yarn.* ./
 
-CMD ["npm", "run", "start"]
+USER node
+
+RUN yarn
+
+COPY --chown=node:node . .
+
+EXPOSE 3333
+
+RUN chmod +x ./init.sh
+
+ENTRYPOINT ["./init.sh"]
